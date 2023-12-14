@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormService } from '../services/form.service';
 import { FormModelDto } from './form.model';
+import { RefreshService } from '../services/refresh.service';
 
 @Component({
   selector: 'app-form',
@@ -13,7 +14,7 @@ export class FormComponent implements OnInit {
     Description: ''
   };
 
-  constructor(private formService: FormService) {}
+  constructor(private formService: FormService, private refreshService: RefreshService) {}
 
   ngOnInit(): void {}
 
@@ -24,7 +25,9 @@ export class FormComponent implements OnInit {
   sendTask() {
     return this.formService.sendTask(this.model).subscribe({
       next: response => {
+        this.refreshService.refresh();
         console.log(response);
+        
       },
       error: error => console.error()
     });

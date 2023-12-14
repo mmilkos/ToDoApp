@@ -14,12 +14,23 @@ export class RefreshService {
 
   constructor(private http: HttpClient) { }
 
-  
-  Refresh(): void {
+  getRefreshObservable() {
+    return this.refreshSubject.asObservable();
+  }
+
+   refresh(): void {
     this.http.get(this.apiUrl).subscribe({
-      next: response => this.userTasks = response,
+      next: (response: any) => {
+        this.userTasks = response;
+        this.refreshSubject.next(); // Emituje zdarzenie do nasłuchujących komponentów
+      },
       error: error => console.log(error),
       complete: () => console.log('Request completed')
-    })
+    });
+   }
+
+   getUserTasks(): any 
+   {
+    return this.userTasks;
   }
 }
