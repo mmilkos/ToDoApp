@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TodoApi.Aplication.Mappings;
 using TodoApi.Aplication.Services;
 
 namespace TodoApi.Aplication.Extensions
@@ -13,6 +14,7 @@ namespace TodoApi.Aplication.Extensions
         public static void AddAplication(this IServiceCollection service) 
         {
             service.AddScoped<ITodoApiService, TodoApiService>();
+            service.AddAutoMapper(typeof(UserTaskMappingProfile));
         }
     }
 }

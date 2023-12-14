@@ -20,5 +20,15 @@ namespace TodoApi.Controllers
             var tasks = await _todoApiService.GetAllTasksAsync();
             return tasks;
         }
+
+        [HttpPost("sendTask")]
+        public async Task AddTaskAsync(FormModelDto taskDto) 
+        {
+            Console.WriteLine("Task wchodzi tutaj");
+            await _todoApiService.AddTaskAsync(taskDto);
+        }
+
+
+
     }
 }

@@ -10,5 +10,6 @@ namespace TodoApi.Aplication.Services
     public interface ITodoApiService
     {
         Task<IEnumerable<UserTask>> GetAllTasksAsync();
+        Task AddTaskAsync(FormModelDto task);
     }
 }
