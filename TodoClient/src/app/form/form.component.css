@@ -1,0 +1,7 @@
+.formWrapper{
+    max-width: 30%;
+}
+
+textarea{
+    resize: none;
+}
