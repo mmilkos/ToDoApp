@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TodoApi.Domain.Interfaces;
 using TodoApi.Infrastructure.Persistence;
+using TodoApi.Infrastructure.Repositories;
 using TodoApi.Infrastructure.Seeders;
 
 namespace TodoApi.Infrastructure.Extensions
@@ -18,6 +20,7 @@ namespace TodoApi.Infrastructure.Extensions
             var conectionString = configuration.GetConnectionString("ToDoApp");
             services.AddDbContext<ToDoAppDbContext>(options => options.UseSqlServer(conectionString));
             services.AddScoped<TodoApiSeeder>();
+            services.AddScoped<ITodoApiRepository, TodoApiRepository>();
         }
     }
 }
