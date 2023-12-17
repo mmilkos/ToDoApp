@@ -9,7 +9,7 @@ import { RefreshService } from './services/refresh.service';
 })
 
 export class AppComponent implements OnInit {
-  //title = 'TodoClient';
+  title = 'TodoClient';
   userTasks : any;
   
 

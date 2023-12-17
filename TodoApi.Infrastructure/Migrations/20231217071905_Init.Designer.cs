@@ -12,7 +12,7 @@ using TodoApi.Infrastructure.Persistence;
 namespace TodoApi.Infrastructure.Migrations
 {
     [DbContext(typeof(ToDoAppDbContext))]
-    [Migration("20231212194011_Init")]
+    [Migration("20231217071905_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -40,7 +40,6 @@ namespace TodoApi.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
