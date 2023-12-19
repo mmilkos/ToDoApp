@@ -14,7 +14,7 @@ export class FormComponent implements OnInit {
     Description: ''
   };
 
-  constructor(private formService: FormService, private refreshService: RefreshService) {}
+  constructor(private formService: FormService, private refreshService : RefreshService) {}
 
   ngOnInit(): void {}
 
@@ -24,12 +24,12 @@ export class FormComponent implements OnInit {
 
   sendTask() {
     return this.formService.sendTask(this.model).subscribe({
-      next: response => {
-        this.refreshService.refresh();
+      next: (response : any) => {
+        console.log('Loguje response: ');
         console.log(response);
-        
+      this.refreshService.addUserTask(response);
       },
-      error: error => console.error()
+      error: error => console.log(error)
     });
   }
 }

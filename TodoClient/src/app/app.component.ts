@@ -23,6 +23,6 @@ export class AppComponent implements OnInit {
       {
         this.userTasks = this.refreshService.getUserTasks();
       });
-      this.refreshService.refresh();
+      this.refreshService.getAllTasks();
   }
 }

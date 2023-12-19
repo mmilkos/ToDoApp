@@ -9,6 +9,9 @@ namespace TodoApi.Domain.Interfaces
     public interface ITodoApiRepository
     {
         Task<IEnumerable<Domain.UserTask>> GetAllTasksAsync();
-        Task AddTaskAsync(Domain.UserTask task);
+        Task<Domain.UserTask> AddTaskAsync(Domain.UserTask task);
+
+        Task<Domain.UserTask> GetTaskByIdAsync(int id);
+
     }
 }

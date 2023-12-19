@@ -15,6 +15,9 @@ namespace TodoApi.Aplication.Mappings
             CreateMap<FormModelDto, UserTask>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
+
+            CreateMap<UserTask, FromModelIdDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

@@ -18,14 +18,14 @@ export class RefreshService {
     return this.refreshSubject.asObservable();
   }
 
-   refresh(): void {
+   getAllTasks(): void {
     this.http.get(this.apiUrl).subscribe({
       next: (response: any) => {
         this.userTasks = response;
-        this.refreshSubject.next(); // Emituje zdarzenie do nasłuchujących komponentów
+       this.refreshSubject.next(); // Emituje zdarzenie do nasłuchujących komponentów
       },
       error: error => console.log(error),
-      complete: () => console.log('Request completed')
+      complete: () => console.log('Got data from database')
     });
    }
 
@@ -33,4 +33,12 @@ export class RefreshService {
    {
     return this.userTasks;
   }
+
+  addUserTask(task : any){
+    this.userTasks.push(task);
+  }
+  
+
 }
+  
+

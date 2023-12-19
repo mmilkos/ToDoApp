@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json.Linq;
 using TodoApi.Aplication.Services;
 using TodoApi.Domain;
 
@@ -15,20 +17,24 @@ namespace TodoApi.Controllers
         }
 
         [HttpGet]
+        [Produces("application/json")]
         public async Task<IEnumerable<UserTask>> GetAllTasksAsync() 
         {
             var tasks = await _todoApiService.GetAllTasksAsync();
             return tasks;
         }
 
+       
+        
+
         [HttpPost("sendTask")]
-        public async Task AddTaskAsync(FormModelDto taskDto) 
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        public async Task<Domain.UserTask> AddTaskAsync([FromBody] FormModelDto formDto) 
         {
-            Console.WriteLine("Task wchodzi tutaj");
-            await _todoApiService.AddTaskAsync(taskDto);
+            
+           return await _todoApiService.AddTaskAsync(formDto);
+
         }
-
-
-
     }
 }

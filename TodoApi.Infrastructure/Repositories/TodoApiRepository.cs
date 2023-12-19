@@ -18,10 +18,11 @@ namespace TodoApi.Infrastructure.Repositories
             _DbContext = dbContext;
         }
 
-        public async Task AddTaskAsync(UserTask task)
+        public async Task<UserTask> AddTaskAsync(UserTask task)
         {
            await _DbContext.Tasks.AddAsync(task);
            await _DbContext.SaveChangesAsync();
+           return task;
            
         }
 
@@ -29,6 +30,12 @@ namespace TodoApi.Infrastructure.Repositories
         {
             var allTasks = await _DbContext.Tasks.ToListAsync();
             return allTasks;
+        }
+
+        public async Task<UserTask> GetTaskByIdAsync(int id)
+        {
+            UserTask task = await _DbContext.Tasks.FirstAsync(x => x.Id == id);
+            return task;
         }
     }
 }
