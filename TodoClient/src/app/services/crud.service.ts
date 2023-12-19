@@ -9,7 +9,7 @@ export class CrudService {
 
   tasks: any[] = [];
   apiUrl = "http://localhost:5000/api/tasks/";
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, ) { }
 
   postTask(formData : any): Observable<any>{
     console.log(formData)
@@ -25,12 +25,18 @@ export class CrudService {
   }
 
   deleteTask(id : number): Observable<any>{
-    return this.http.delete(this.apiUrl + "/deleteTask/" + id);
+    
+    return this.http.delete(this.apiUrl + "deleteTask/" + id);
   }
 
   addTaskToCollection(task : any){
     this.tasks.push(task);
   }
+
+  updateTaskStatus(){
+    
+  }
+  
 
   getTasks(){
     return this.tasks;
