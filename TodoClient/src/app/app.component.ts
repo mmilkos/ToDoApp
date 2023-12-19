@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RefreshService } from './services/refresh.service';
+import { CrudService } from './services/crud.service';
+
 
 @Component({
   selector: 'app-root',
@@ -13,16 +14,12 @@ export class AppComponent implements OnInit {
   userTasks : any;
   
 
-  constructor(private refreshService: RefreshService) {}
+  constructor(private crud: CrudService) {}
 
   ngOnInit(): void 
   {
-    this.userTasks = this.refreshService.getUserTasks();
-    this.refreshService.getRefreshObservable().subscribe(
-      ()=> 
-      {
-        this.userTasks = this.refreshService.getUserTasks();
-      });
-      this.refreshService.getAllTasks();
+    this.crud.getAllTasks().subscribe(()=>{
+      this.userTasks = this.crud.getTasks();
+    })
   }
 }

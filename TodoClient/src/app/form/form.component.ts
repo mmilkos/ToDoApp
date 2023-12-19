@@ -1,40 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormService } from '../services/form.service';
 import { FormModelDto } from './form.model';
-import { RefreshService } from '../services/refresh.service';
+import { CrudService } from '../services/crud.service';
+
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit {
-  model: FormModelDto = {
-    Name: '',
-    Description: ''
-  };
-
-  constructor(private formService: FormService, private refreshService : RefreshService) {}
-
-  ngOnInit(): void {}
-
-  showModel() {
-    console.log(this.model);
+export class FormComponent  {
+  model : FormModelDto = {
+    Name: "",
+    Description: ""
   }
 
-  sendTask() {
-    return this.formService.sendTask(this.model).subscribe({
-      next: (response : any) => 
-      {
-        this.refreshService.addUserTask(response);
-        this.clearInput();
+
+  constructor(private crud: CrudService) {}
+
+  Submit(){
+    this.crud.postTask(this.model).subscribe(
+      response => {
+        this.crud.addTaskToCollection(response)
+        console.log(response)
+        this.model.Description = "";
+        this.model.Name = "";
       },
-      error: error => console.log(error)
-    });
-  }
+      error => {console.error(error)}
+    )
 
-  clearInput(){
-    this.model.Name = '';
-    this.model.Description = '';
   }
 }

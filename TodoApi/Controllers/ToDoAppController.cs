@@ -29,7 +29,7 @@ namespace TodoApi.Controllers
         [Produces("application/json")]
         public async Task<Domain.UserTask> AddTaskAsync([FromBody] FormModelDto formDto)
         {
-
+            Console.WriteLine("Tutaj wchodzi");
             return await _todoApiService.AddTaskAsync(formDto);
 
         }
