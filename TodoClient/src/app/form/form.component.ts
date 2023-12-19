@@ -24,12 +24,17 @@ export class FormComponent implements OnInit {
 
   sendTask() {
     return this.formService.sendTask(this.model).subscribe({
-      next: (response : any) => {
-        console.log('Loguje response: ');
-        console.log(response);
-      this.refreshService.addUserTask(response);
+      next: (response : any) => 
+      {
+        this.refreshService.addUserTask(response);
+        this.clearInput();
       },
       error: error => console.log(error)
     });
+  }
+
+  clearInput(){
+    this.model.Name = '';
+    this.model.Description = '';
   }
 }
