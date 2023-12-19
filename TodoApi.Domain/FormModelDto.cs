@@ -10,6 +10,9 @@ namespace TodoApi.Domain
     public class FormModelDto
     {
         [Required]
+        public int Id { get; set; }
+
+        [Required]
         [MinLength(2, ErrorMessage = "Name should be min 2 chars")]
         public string Name { get; set; }
 

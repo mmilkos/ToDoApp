@@ -10,8 +10,10 @@ namespace TodoApi.Domain.Interfaces
     {
         Task<IEnumerable<Domain.UserTask>> GetAllTasksAsync();
         Task<Domain.UserTask> AddTaskAsync(Domain.UserTask task);
+        Task DeleteTaskAsync(int id);
 
-        Task<Domain.UserTask> GetTaskByIdAsync(int id);
+
+
 
     }
 }

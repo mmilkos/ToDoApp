@@ -26,16 +26,21 @@ namespace TodoApi.Infrastructure.Repositories
            
         }
 
+        public async Task DeleteTaskAsync(int id)
+        {
+            UserTask userTask = await _DbContext.Tasks.FindAsync(id);
+            if (userTask != null)
+            {
+                _DbContext.Tasks.Remove(userTask);
+                await _DbContext.SaveChangesAsync();
+            }
+        }
+
         public async Task<IEnumerable<UserTask>> GetAllTasksAsync()
         {
             var allTasks = await _DbContext.Tasks.ToListAsync();
             return allTasks;
         }
 
-        public async Task<UserTask> GetTaskByIdAsync(int id)
-        {
-            UserTask task = await _DbContext.Tasks.FirstAsync(x => x.Id == id);
-            return task;
-        }
     }
 }

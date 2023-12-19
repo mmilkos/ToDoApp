@@ -18,23 +18,28 @@ namespace TodoApi.Controllers
 
         [HttpGet]
         [Produces("application/json")]
-        public async Task<IEnumerable<UserTask>> GetAllTasksAsync() 
+        public async Task<IEnumerable<UserTask>> GetAllTasksAsync()
         {
             var tasks = await _todoApiService.GetAllTasksAsync();
             return tasks;
         }
 
-       
-        
-
         [HttpPost("sendTask")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<Domain.UserTask> AddTaskAsync([FromBody] FormModelDto formDto) 
+        public async Task<Domain.UserTask> AddTaskAsync([FromBody] FormModelDto formDto)
         {
-            
-           return await _todoApiService.AddTaskAsync(formDto);
+
+            return await _todoApiService.AddTaskAsync(formDto);
 
         }
+
+        [HttpDelete("deleteTask/{id}")]
+        public async Task DeleteTaskAsync(int id)
+        {
+            await _todoApiService.DeleteTaskAsync(id);
+        }
+
+
     }
 }
