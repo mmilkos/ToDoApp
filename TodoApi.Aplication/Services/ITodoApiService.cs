@@ -12,7 +12,7 @@ namespace TodoApi.Aplication.Services
     public interface ITodoApiService
     {
         Task<IEnumerable<UserTask>> GetAllTasksAsync();
-        Task<Domain.UserTask> AddTaskAsync(FormModelDto tasykJson);
+        Task<Domain.UserTaskResponse> AddTaskAsync(FormModelDto tasykJson);
         Task DeleteTaskAsync(int id);
 
         Task ChangeStatusAsync(int id);

@@ -23,11 +23,11 @@ namespace TodoApi.Aplication.Services
             _mapper = mapper;
         }
 
-        public async Task<UserTask> AddTaskAsync(FormModelDto taskJson)
+        public async Task<UserTaskResponse> AddTaskAsync(FormModelDto taskJson)
         {
 
             var task = _mapper.Map<Domain.UserTask>(taskJson);
-            return _mapper.Map<Domain.UserTask>(await _todoApiRepository.AddTaskAsync(task));
+            return _mapper.Map<Domain.UserTaskResponse>(await _todoApiRepository.AddTaskAsync(task));
         }
 
         public async Task ChangeStatusAsync(int id)

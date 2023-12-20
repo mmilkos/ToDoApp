@@ -27,7 +27,7 @@ namespace TodoApi.Controllers
         [HttpPost("sendTask")] // api/tasks/sendTasks
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<Domain.UserTask> AddTaskAsync([FromBody] FormModelDto formDto)
+        public async Task<Domain.UserTaskResponse> AddTaskAsync([FromBody] FormModelDto formDto)
         {
             return await _todoApiService.AddTaskAsync(formDto);
         }

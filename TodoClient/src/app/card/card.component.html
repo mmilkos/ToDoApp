@@ -3,7 +3,8 @@
         <div style="display: flex; justify-content: space-between;">
             <h5 class="card-title" style="display: inline-block;"  >{{name}} </h5>
            <!-- dodać two way binding tego znacznika -->
-            <input class="form-check-input" type="checkbox" [(ngModel)]="status" (change)="Update()">
+           
+            
             <label class="form-check-label">
             </label>
     </div>
@@ -11,7 +12,12 @@
       
       <p class="card-text">{{desc}}</p>
       <div class="form-check">
-        
-      <button href="#" class="btn btn-danger" (click)="Delete()">Delete</button>
+        <div style="display: flex; justify-content: space-between;">
+            <button href="#" class="btn btn-danger" (click)="Delete()">Delete</button>
+            <p>Done</p>
+            <input class="form-check-input" type="checkbox" [(ngModel)]="status" (change)="Update()">
+
+        </div>
+      
     </div>
   </div>
