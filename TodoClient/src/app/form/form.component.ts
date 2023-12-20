@@ -17,16 +17,17 @@ export class FormComponent  {
 
   constructor(private crud: CrudService) {}
 
-  Submit(){
+  Submit()
+  {
     this.crud.postTask(this.model).subscribe(
-      response => {
+      response => 
+      {
         this.crud.addTaskToCollection(response)
-        console.log(response)
         this.model.Description = "";
         this.model.Name = "";
       },
-      error => {console.error(error)}
+      error => console.error(error)
     )
-
   }
+
 }

@@ -19,8 +19,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    this.crud.getAllTasks().subscribe(()=>{
-      this.userTasks = this.crud.getTasks();
-    })
+    this.crud.getAllTasks().subscribe(
+      ()=>{this.userTasks = this.crud.getTasks();}
+    )
   }
+
 }

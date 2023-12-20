@@ -6,7 +6,8 @@ import { CrudService } from '../services/crud.service';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent {
+export class CardComponent 
+{
   @Input() id!: number;
   @Input() name!: string;
   @Input() desc!: string;
@@ -15,23 +16,22 @@ export class CardComponent {
 
   constructor(private crud: CrudService) {}
 
-  Delete(){
-    
+  Delete()
+  {
     this.crud.deleteTask(this.id).subscribe(
-      response => {
-        location.reload();
-        console.log("Deleted")
-      },
-      error => {console.error(error)}
-    )
-
-  }
-
-  Update(){
-    this.crud.updateTaskStatus(this.id).subscribe(
-      response => {
-        console.log("Updated")
+      {
+        error: error => console.error(error)
       }
     )
   }
+
+  Update()
+  {
+    this.crud.updateTaskStatus(this.id).subscribe(
+      {
+        error: error => console.error(error)
+      }
+    )
+  }
+  
 }

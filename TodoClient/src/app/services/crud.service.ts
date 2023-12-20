@@ -11,37 +11,45 @@ export class CrudService {
   apiUrl = "http://localhost:5000/api/tasks/";
   constructor(private http: HttpClient, ) { }
 
-  getAllTasks(): Observable<any>{
+
+  getAllTasks(): Observable<any>
+  {
     return this.http.get<any[]>(this.apiUrl).pipe(
-      tap((tasks: any[]) => {
+      tap((tasks: any[]) => 
+      {
         this.tasks = tasks;
       })
     );
   }
 
-  postTask(formData : any): Observable<any>{
+
+  postTask(formData : any): Observable<any>
+  {
     console.log(formData)
     return this.http.post(this.apiUrl + "sendTask", formData);
   }
 
-  updateTaskStatus(id : number){
-    return this.http.put(this.apiUrl + "changeStatus/" + id, null)
 
+  updateTaskStatus(id : number)
+  {
+    return this.http.put(this.apiUrl + "changeStatus/" + id, null)
   }
 
-  deleteTask(id : number): Observable<any>{
-    
+
+  deleteTask(id : number): Observable<any>
+  {
     return this.http.delete(this.apiUrl + "deleteTask/" + id);
   }
 
-  addTaskToCollection(task : any){
+
+  addTaskToCollection(task : any)
+  {
     this.tasks.push(task);
   }
 
   
-  
-
-  getTasks(){
+  getTasks()
+  {
     return this.tasks;
   }
 }
