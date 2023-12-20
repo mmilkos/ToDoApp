@@ -10,6 +10,7 @@ export class CardComponent {
   @Input() id!: number;
   @Input() name!: string;
   @Input() desc!: string;
+  @Input() status!: boolean;
 
 
   constructor(private crud: CrudService) {}
@@ -24,5 +25,13 @@ export class CardComponent {
       error => {console.error(error)}
     )
 
+  }
+
+  Update(){
+    this.crud.updateTaskStatus(this.id).subscribe(
+      response => {
+        console.log("Updated")
+      }
+    )
   }
 }

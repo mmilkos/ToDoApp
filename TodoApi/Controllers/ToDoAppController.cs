@@ -7,7 +7,7 @@ using TodoApi.Domain;
 namespace TodoApi.Controllers
 {
     [ApiController]
-    [Route("api/tasks")] // /api/tasks
+    [Route("api/tasks")] 
     public class ToDoAppController : ControllerBase
     {
         private readonly ITodoApiService _todoApiService;
@@ -16,7 +16,7 @@ namespace TodoApi.Controllers
             _todoApiService = todoApiService;
         }
 
-        [HttpGet]
+        [HttpGet] // /api/tasks
         [Produces("application/json")]
         public async Task<IEnumerable<UserTask>> GetAllTasksAsync()
         {
@@ -24,17 +24,21 @@ namespace TodoApi.Controllers
             return tasks;
         }
 
-        [HttpPost("sendTask")]
+        [HttpPost("sendTask")] // api/tasks/sendTasks
         [Consumes("application/json")]
         [Produces("application/json")]
         public async Task<Domain.UserTask> AddTaskAsync([FromBody] FormModelDto formDto)
         {
-            Console.WriteLine("Tutaj wchodzi");
             return await _todoApiService.AddTaskAsync(formDto);
-
         }
 
-        [HttpDelete("deleteTask/{id}")]
+        [HttpPut("changeStatus/{id}")] // api/tasks/changeStatus/id
+        public async Task ChangeStatusAsync(int id)
+        {
+            await _todoApiService.ChangeStatusAsync(id);
+        }
+
+        [HttpDelete("deleteTask/{id}")] // api/tasks/deleteTask/id
         public async Task DeleteTaskAsync(int id)
         {
             await _todoApiService.DeleteTaskAsync(id);

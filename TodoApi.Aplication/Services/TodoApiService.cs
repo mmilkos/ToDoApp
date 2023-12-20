@@ -30,6 +30,11 @@ namespace TodoApi.Aplication.Services
             return _mapper.Map<Domain.UserTask>(await _todoApiRepository.AddTaskAsync(task));
         }
 
+        public async Task ChangeStatusAsync(int id)
+        {
+            await _todoApiRepository.ChangeStatusAsync(id);
+        }
+
         public async Task DeleteTaskAsync(int id)
         {
            await _todoApiRepository.DeleteTaskAsync(id);

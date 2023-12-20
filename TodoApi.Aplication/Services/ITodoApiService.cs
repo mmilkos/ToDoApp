@@ -14,5 +14,7 @@ namespace TodoApi.Aplication.Services
         Task<IEnumerable<UserTask>> GetAllTasksAsync();
         Task<Domain.UserTask> AddTaskAsync(FormModelDto tasykJson);
         Task DeleteTaskAsync(int id);
+
+        Task ChangeStatusAsync(int id);
     }
 }

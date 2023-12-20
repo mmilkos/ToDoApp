@@ -26,6 +26,17 @@ namespace TodoApi.Infrastructure.Repositories
            
         }
 
+        public async Task ChangeStatusAsync(int id)
+        {
+            UserTask userTask = await _DbContext.Tasks.FindAsync(id);
+            if (userTask != null) 
+            {
+                bool status = userTask.Complited;
+                userTask.Complited = !status;
+                await _DbContext.SaveChangesAsync();
+            }
+        }
+
         public async Task DeleteTaskAsync(int id)
         {
             UserTask userTask = await _DbContext.Tasks.FindAsync(id);
