@@ -19,10 +19,14 @@ export class CardComponent
   Delete()
   {
     this.crud.deleteTask(this.id).subscribe(
+    {
+      next: () =>
       {
-        error: error => console.error(error)
-      }
-    )
+        location.reload();
+      },
+      error: error => console.error(error)
+    }
+    );
   }
 
   Update()

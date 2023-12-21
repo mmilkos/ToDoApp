@@ -25,7 +25,6 @@ export class CrudService {
 
   postTask(formData : any): Observable<any>
   {
-    console.log(formData)
     return this.http.post(this.apiUrl + "sendTask", formData);
   }
 
