@@ -24,7 +24,7 @@ namespace TodoApi.Controllers
             return tasks;
         }
 
-        [HttpPost("sendTask")] // api/tasks/sendTasks
+        [HttpPost] // api/tasks
         [Consumes("application/json")]
         [Produces("application/json")]
         public async Task<Domain.UserTaskResponse> AddTaskAsync([FromBody] FormModelDto formDto)
@@ -32,13 +32,13 @@ namespace TodoApi.Controllers
             return await _todoApiService.AddTaskAsync(formDto);
         }
 
-        [HttpPut("changeStatus/{id}")] // api/tasks/changeStatus/id
+        [HttpPut("{id}")] // api/tasks/id
         public async Task ChangeStatusAsync(int id)
         {
             await _todoApiService.ChangeStatusAsync(id);
         }
 
-        [HttpDelete("deleteTask/{id}")] // api/tasks/deleteTask/id
+        [HttpDelete("{id}")] // api/tasks/id
         public async Task DeleteTaskAsync(int id)
         {
             await _todoApiService.DeleteTaskAsync(id);

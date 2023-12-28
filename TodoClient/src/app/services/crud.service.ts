@@ -25,19 +25,19 @@ export class CrudService {
 
   postTask(formData : any): Observable<any>
   {
-    return this.http.post(this.apiUrl + "sendTask", formData);
+    return this.http.post(this.apiUrl, formData);
   }
 
 
   updateTaskStatus(id : number)
   {
-    return this.http.put(this.apiUrl + "changeStatus/" + id, null)
+    return this.http.put(this.apiUrl + id, null)
   }
 
 
   deleteTask(id : number): Observable<any>
   {
-    return this.http.delete(this.apiUrl + "deleteTask/" + id);
+    return this.http.delete(this.apiUrl + id);
   }
 
 
