@@ -16,5 +16,7 @@ namespace TodoApi.Aplication.Services
         Task DeleteTaskAsync(int id);
 
         Task ChangeStatusAsync(int id);
+
+        bool CheckIfTaskExistsById(int id);
     }
 }

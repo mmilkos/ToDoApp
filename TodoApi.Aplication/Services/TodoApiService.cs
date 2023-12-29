@@ -35,6 +35,12 @@ namespace TodoApi.Aplication.Services
             await _todoApiRepository.ChangeStatusAsync(id);
         }
 
+        public bool CheckIfTaskExistsById(int id)
+        {
+            bool result = _todoApiRepository.CheckIfObjectExistsById(id);
+            return result;
+        }
+
         public async Task DeleteTaskAsync(int id)
         {
            await _todoApiRepository.DeleteTaskAsync(id);

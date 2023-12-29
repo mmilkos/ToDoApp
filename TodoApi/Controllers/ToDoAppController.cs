@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
 using TodoApi.Aplication.Services;
 using TodoApi.Domain;
@@ -18,32 +19,57 @@ namespace TodoApi.Controllers
 
         [HttpGet] // /api/tasks
         [Produces("application/json")]
-        public async Task<IEnumerable<UserTask>> GetAllTasksAsync()
+        public async Task<ActionResult<IEnumerable<UserTask>>> GetAllTasksAsync()
         {
-            var tasks = await _todoApiService.GetAllTasksAsync();
-            return tasks;
+            IEnumerable<UserTask> tasks = await _todoApiService.GetAllTasksAsync();
+            return Ok(tasks);
         }
 
         [HttpPost] // api/tasks
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<Domain.UserTaskResponse> AddTaskAsync([FromBody] FormModelDto formDto)
+        public async Task<ActionResult<Domain.UserTaskResponse>> AddTaskAsync([FromBody] FormModelDto formDto)
         {
-            return await _todoApiService.AddTaskAsync(formDto);
+            if (ModelState.IsValid)
+            {
+                var task = await _todoApiService.AddTaskAsync(formDto);
+                return StatusCode(201, task);
+            }
+            else 
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("{id}")] // api/tasks/id
-        public async Task ChangeStatusAsync(int id)
+        public async Task<ActionResult> ChangeStatusAsync(int id)
         {
-            await _todoApiService.ChangeStatusAsync(id);
+            bool exist = _todoApiService.CheckIfTaskExistsById(id);
+            if (exist)
+            {
+                await _todoApiService.ChangeStatusAsync(id);
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
 
         [HttpDelete("{id}")] // api/tasks/id
-        public async Task DeleteTaskAsync(int id)
+        public async Task<ActionResult> DeleteTaskAsync(int id)
         {
-            await _todoApiService.DeleteTaskAsync(id);
+            bool exist = _todoApiService.CheckIfTaskExistsById(id);
+            if (exist)
+            {
+                await _todoApiService.DeleteTaskAsync(id);
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }   
         }
-
-
     }
 }

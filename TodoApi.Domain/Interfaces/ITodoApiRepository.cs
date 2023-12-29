@@ -12,5 +12,6 @@ namespace TodoApi.Domain.Interfaces
         Task<Domain.UserTask> AddTaskAsync(Domain.UserTask task);
         Task DeleteTaskAsync(int id);
         Task ChangeStatusAsync(int id);
+        bool CheckIfObjectExistsById(int id);
     }
 }

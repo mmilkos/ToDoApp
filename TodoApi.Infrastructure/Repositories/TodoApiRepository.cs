@@ -37,6 +37,12 @@ namespace TodoApi.Infrastructure.Repositories
             }
         }
 
+        public bool CheckIfObjectExistsById(int id)
+        {
+            bool exist =  _DbContext.Tasks.Any(task => task.Id == id);
+            return exist;
+        }
+
         public async Task DeleteTaskAsync(int id)
         {
             UserTask userTask = await _DbContext.Tasks.FindAsync(id);
