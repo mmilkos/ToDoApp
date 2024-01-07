@@ -20,7 +20,8 @@ namespace TodoApi.Infrastructure.Extensions
             var conectionString = configuration.GetConnectionString("ToDoApp");
             services.AddDbContext<ToDoAppDbContext>(options => options.UseSqlServer(conectionString));
             services.AddScoped<TodoApiSeeder>();
-            services.AddScoped<ITodoApiRepository, TodoApiRepository>();
+            services.AddScoped<ITasksRepository, TasksRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
         }
     }
 }

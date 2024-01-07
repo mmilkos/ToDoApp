@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TodoApi.Domain.Entities;
 
 namespace TodoApi.Domain.Interfaces
 {
-    public interface ITodoApiRepository
+    public interface ITasksRepository
     {
-        Task<IEnumerable<Domain.UserTask>> GetAllTasksAsync();
-        Task<Domain.UserTask> AddTaskAsync(Domain.UserTask task);
+        Task<IEnumerable<UserTask>> GetAllTasksAsync();
+        Task<UserTask> AddTaskAsync(UserTask task);
         Task DeleteTaskAsync(int id);
         Task ChangeStatusAsync(int id);
         bool CheckIfObjectExistsById(int id);

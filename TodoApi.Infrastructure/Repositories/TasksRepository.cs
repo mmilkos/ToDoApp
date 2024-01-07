@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TodoApi.Domain;
+using TodoApi.Domain.Entities;
 using TodoApi.Domain.Interfaces;
 using TodoApi.Infrastructure.Persistence;
 
 namespace TodoApi.Infrastructure.Repositories
 {
-    public class TodoApiRepository : ITodoApiRepository
+    public class TasksRepository : ITasksRepository
     {
         private readonly ToDoAppDbContext _DbContext;
-        public TodoApiRepository(ToDoAppDbContext dbContext)
+        public TasksRepository(ToDoAppDbContext dbContext)
         {
             _DbContext = dbContext;
         }
@@ -22,8 +22,7 @@ namespace TodoApi.Infrastructure.Repositories
         {
            await _DbContext.Tasks.AddAsync(task);
            await _DbContext.SaveChangesAsync();
-           return task;
-           
+           return task;  
         }
 
         public async Task ChangeStatusAsync(int id)

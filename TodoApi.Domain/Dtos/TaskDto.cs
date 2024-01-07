@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TodoApi.Domain
+namespace TodoApi.Domain.Dtos
 {
-    public class UserTaskResponse
+    public class TaskDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

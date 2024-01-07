@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using TodoApi.Domain.Entities;
 
 namespace TodoApi.Infrastructure.Persistence
 {
@@ -15,6 +16,7 @@ namespace TodoApi.Infrastructure.Persistence
         }
 
         //public DbSet<Domain>
-        public DbSet<Domain.UserTask> Tasks { get; set; }
+        public DbSet<UserTask> Tasks { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

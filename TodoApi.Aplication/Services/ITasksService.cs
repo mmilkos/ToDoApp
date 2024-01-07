@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TodoApi.Domain;
+using TodoApi.Domain.Dtos;
 
 namespace TodoApi.Aplication.Services
 {
-    public interface ITodoApiService
+    public interface ITasksService
     {
-        Task<IEnumerable<UserTask>> GetAllTasksAsync();
-        Task<Domain.UserTaskResponse> AddTaskAsync(FormModelDto tasykJson);
+        Task<IEnumerable<Domain.Entities.UserTask>> GetAllTasksAsync();
+        Task<TaskDto> AddTaskAsync(TaskFormDto tasykJson);
         Task DeleteTaskAsync(int id);
 
         Task ChangeStatusAsync(int id);

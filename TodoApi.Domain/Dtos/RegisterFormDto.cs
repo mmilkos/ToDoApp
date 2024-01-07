@@ -5,20 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TodoApi.Domain
+namespace TodoApi.Domain.Dtos
 {
-    public class FormModelDto
+    public class RegisterFormDto
     {
-
         [Required]
         [MinLength(2, ErrorMessage = "The field Name must be a string type with a minimum length of 2")]
         public string Name { get; set; }
 
-        public string? Description { get; set; }
-
-        public override string ToString()
-        {
-            return $"Name: {Name}, Description: {Description}";
-        }
+        [Required]
+        [MinLength(8, ErrorMessage = "The field Password must be a string type with a minimum length of 8")]
+        public string Password { get; set; }
     }
 }

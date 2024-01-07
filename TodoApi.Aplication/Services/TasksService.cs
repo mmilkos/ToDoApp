@@ -8,26 +8,27 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using TodoApi.Domain;
+using TodoApi.Domain.Dtos;
+using TodoApi.Domain.Entities;
 using TodoApi.Domain.Interfaces;
 
 namespace TodoApi.Aplication.Services
 {
-    public class TodoApiService : ITodoApiService
+    public class TasksService : ITasksService
     {
-        private readonly ITodoApiRepository _todoApiRepository;
+        private readonly ITasksRepository _todoApiRepository;
         private readonly IMapper _mapper;
-        public TodoApiService(ITodoApiRepository todoApiRepository, IMapper mapper)
+        public TasksService(ITasksRepository todoApiRepository, IMapper mapper)
         {
             _todoApiRepository = todoApiRepository;
             _mapper = mapper;
         }
 
-        public async Task<UserTaskResponse> AddTaskAsync(FormModelDto taskJson)
+        public async Task<TaskDto> AddTaskAsync(TaskFormDto taskJson)
         {
 
-            var task = _mapper.Map<Domain.UserTask>(taskJson);
-            return _mapper.Map<Domain.UserTaskResponse>(await _todoApiRepository.AddTaskAsync(task));
+            var task = _mapper.Map<UserTask>(taskJson);
+            return _mapper.Map<TaskDto>(await _todoApiRepository.AddTaskAsync(task));
         }
 
         public async Task ChangeStatusAsync(int id)
@@ -46,7 +47,7 @@ namespace TodoApi.Aplication.Services
            await _todoApiRepository.DeleteTaskAsync(id);
         }
 
-        public async Task<IEnumerable<UserTask>> GetAllTasksAsync()
+        public async Task<IEnumerable<Domain.Entities.UserTask>> GetAllTasksAsync()
         {
             var userTasks = await _todoApiRepository.GetAllTasksAsync();
             return userTasks;
