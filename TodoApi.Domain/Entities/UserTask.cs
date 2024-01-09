@@ -17,5 +17,7 @@ namespace TodoApi.Domain.Entities
         public DateTime CreatedDate { get; set; } = DateTime.Now.Date;
 
         public bool Complited { get; set; } = false;
+
+        public string AuthorName { get; set; }
     }
 }

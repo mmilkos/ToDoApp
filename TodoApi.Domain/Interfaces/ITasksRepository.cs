@@ -9,10 +9,10 @@ namespace TodoApi.Domain.Interfaces
 {
     public interface ITasksRepository
     {
-        Task<IEnumerable<UserTask>> GetAllTasksAsync();
+        Task<IEnumerable<UserTask>> GetUserTasksAsync(string name);
         Task<UserTask> AddTaskAsync(UserTask task);
         Task DeleteTaskAsync(int id);
         Task ChangeStatusAsync(int id);
-        bool CheckIfObjectExistsById(int id);
+        bool DoesTaskExist(int id);
     }
 }

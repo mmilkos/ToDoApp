@@ -21,15 +21,9 @@ namespace TodoApi.Controllers
         {
             bool userAlreadyExists = _usersService.CheckIfUserAlreadyExists(registerDto.Name);
             
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid){ return BadRequest(); }
 
-            if (userAlreadyExists)
-            {
-                return Conflict();
-            }
+            if (userAlreadyExists){ return Conflict(); }
 
             await _usersService.RegisterAsync(registerDto.Name, registerDto.Password);
             return Ok();
@@ -42,18 +36,14 @@ namespace TodoApi.Controllers
         {
             bool userAlreadyExists = _usersService.CheckIfUserAlreadyExists(userLoginData.Name);
 
-            if (!userAlreadyExists) 
-            {
-                return Unauthorized("Invalid user name");
-            }
+            if (!userAlreadyExists){ return Unauthorized("Invalid user name"); }
+
 
             var LoggedInUser = await _usersService.LoginAsync(userLoginData);
 
-            if (LoggedInUser == null)
-            {
-                return Unauthorized("invalid pasword"); 
-            }
+            if (LoggedInUser == null) { return Unauthorized("invalid pasword"); }
 
+            
             var token = _usersService.GenerateJwt(LoggedInUser);
 
             var userDto = new UserDto

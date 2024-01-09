@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, tap,throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -7,16 +7,16 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class CrudService {
+export class TasksService {
 
   tasks: any[] = [];
   apiUrl = "http://localhost:5000/api/tasks/";
   constructor(private http: HttpClient, ) { }
 
 
-  getAllTasks(): Observable<any>
+  getAllTasks(headers: HttpHeaders): Observable<any>
   {
-    return this.http.get<any[]>(this.apiUrl).pipe(
+    return this.http.get<any[]>(this.apiUrl, {headers: headers}).pipe(
       tap((tasks: any[]) => 
       {
         this.tasks = tasks;
@@ -25,25 +25,25 @@ export class CrudService {
   }
 
 
-  postTask(formData : any): Observable<any>
+  postTask(formData : any, headers : HttpHeaders): Observable<any>
   {
-    return this.http.post(this.apiUrl, formData).pipe(
+    return this.http.post(this.apiUrl, formData, {headers: headers}).pipe(
       catchError(this.handleError)
     );
   }
 
 
-  updateTaskStatus(id : number)
+  updateTaskStatus(id : number, headers : HttpHeaders)
   {
-    return this.http.put(this.apiUrl + id, null).pipe(
+    return this.http.put(this.apiUrl + id, null, {headers: headers}).pipe(
       catchError(this.handleError)
     )
   }
 
 
-  deleteTask(id : number): Observable<any>
+  deleteTask(id : number, headers : HttpHeaders): Observable<any>
   {
-    return this.http.delete(this.apiUrl + id).pipe(
+    return this.http.delete(this.apiUrl + id, {headers: headers}).pipe(
       catchError(this.handleError)
     );
   }
@@ -58,6 +58,10 @@ export class CrudService {
   getTasks()
   {
     return this.tasks;
+  }
+
+  clearTaskArray(){
+    this.tasks.splice(0, this.tasks.length);
   }
 
 

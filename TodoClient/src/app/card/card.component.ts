@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { CrudService } from '../services/crud.service';
+import { TasksService } from '../services/tasks.service';
+import { AccountService } from '../services/account.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-card',
@@ -14,11 +16,12 @@ export class CardComponent
   @Input() status!: boolean;
 
 
-  constructor(private crud: CrudService) {}
+  constructor(private Task: TasksService, private Account: AccountService) {}
 
   Delete()
   {
-    this.crud.deleteTask(this.id).subscribe(
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.Account.currentUserSource.value?.token)
+    this.Task.deleteTask(this.id, headers).subscribe(
     {
       next: () =>
       {
@@ -29,10 +32,12 @@ export class CardComponent
     );
   }
 
-  Update()
+  update()
   {
-    this.crud.updateTaskStatus(this.id).subscribe(
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.Account.currentUserSource.value?.token)
+    this.Task.updateTaskStatus(this.id, headers).subscribe(
       {
+        next: response => console.log(response),
         error: error => console.error(error)
       }
     )

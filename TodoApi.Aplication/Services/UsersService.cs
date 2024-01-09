@@ -49,14 +49,9 @@ namespace TodoApi.Aplication.Services
             var user = await _usersRepository.GetUserByNameAsync(userLoginData.Name.ToLower());
             bool corectPassword = CheckPassword(user, userLoginData);
             
-            if (corectPassword)
-            {
-                return user;
-            }
-            else
-            {
-                return null;
-            }
+            if (corectPassword){ return user; }
+
+            return null; 
         }
 
         private bool CheckPassword(User user, LoginFormDto userLoginData)
@@ -65,10 +60,7 @@ namespace TodoApi.Aplication.Services
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userLoginData.Password));
             for (int i = 0; i < computedHash.Length; i++)
             {
-                if (computedHash[i] != user.PasswordHash[i]) 
-                { 
-                    return false; 
-                }
+                if (computedHash[i] != user.PasswordHash[i]) { return false; }
             }
             return true;
         }

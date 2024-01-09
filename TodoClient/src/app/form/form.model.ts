@@ -1,4 +1,4 @@
-export interface FormModelDto
+export interface TaskFormDto
 {
     Name: string;
     Description: string;

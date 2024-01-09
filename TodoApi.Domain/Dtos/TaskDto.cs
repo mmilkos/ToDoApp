@@ -16,5 +16,7 @@ namespace TodoApi.Domain.Dtos
         public DateTime CreatedDate { get; set; }
 
         public bool Complited { get; set; }
+
+        public string Author { get; set; }
     }
 }

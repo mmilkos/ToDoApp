@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
@@ -24,10 +26,11 @@ namespace TodoApi.Aplication.Services
             _mapper = mapper;
         }
 
-        public async Task<TaskDto> AddTaskAsync(TaskFormDto taskJson)
+        public async Task<TaskDto> AddTaskAsync(TaskFormDto taskJson, string name)
         {
 
             var task = _mapper.Map<UserTask>(taskJson);
+            task.AuthorName = name;
             return _mapper.Map<TaskDto>(await _todoApiRepository.AddTaskAsync(task));
         }
 
@@ -36,21 +39,45 @@ namespace TodoApi.Aplication.Services
             await _todoApiRepository.ChangeStatusAsync(id);
         }
 
-        public bool CheckIfTaskExistsById(int id)
-        {
-            bool result = _todoApiRepository.CheckIfObjectExistsById(id);
-            return result;
-        }
-
         public async Task DeleteTaskAsync(int id)
         {
            await _todoApiRepository.DeleteTaskAsync(id);
         }
 
-        public async Task<IEnumerable<Domain.Entities.UserTask>> GetAllTasksAsync()
+        public async Task<IEnumerable<Domain.Entities.UserTask>> GetUserTasksAsync(string userName)
         {
-            var userTasks = await _todoApiRepository.GetAllTasksAsync();
+            var userTasks = await _todoApiRepository.GetUserTasksAsync(userName);
             return userTasks;
+        }
+
+        public bool DoesTaskExist(int taskId)
+        {
+            bool result = _todoApiRepository.DoesTaskExist(taskId);
+            return result;
+        }
+
+        public string GetUserNameFromJwt(string jwt)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadJwtToken(jwt);
+            string userName = token.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+
+            return userName;
+        }
+
+        public bool IsAuthorizationHeaderValid(IHeaderDictionary headers) 
+        {
+
+            if (!headers.ContainsKey("Authorization")){ return false;}
+            var authHeader = headers["Authorization"].ToString();
+            var authParts = authHeader.Split(' ');
+
+            if (authParts.Length < 2) { return false; }
+
+            var handler = new JwtSecurityTokenHandler();
+            if (!handler.CanReadToken(authParts[1])) {  return false; }
+
+            return true;
         }
     }
 }

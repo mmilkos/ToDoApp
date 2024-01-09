@@ -36,15 +36,15 @@ namespace TodoApi.Infrastructure.Repositories
             }
         }
 
-        public bool CheckIfObjectExistsById(int id)
+        public bool DoesTaskExist(int taskId)
         {
-            bool exist =  _DbContext.Tasks.Any(task => task.Id == id);
+            bool exist =  _DbContext.Tasks.Any(task => task.Id == taskId);
             return exist;
         }
 
-        public async Task DeleteTaskAsync(int id)
+        public async Task DeleteTaskAsync(int taskId)
         {
-            UserTask userTask = await _DbContext.Tasks.FindAsync(id);
+            UserTask userTask = await _DbContext.Tasks.FindAsync(taskId);
             if (userTask != null)
             {
                 _DbContext.Tasks.Remove(userTask);
@@ -52,9 +52,9 @@ namespace TodoApi.Infrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<UserTask>> GetAllTasksAsync()
+        public async Task<IEnumerable<UserTask>> GetUserTasksAsync(string userName)
         {
-            var allTasks = await _DbContext.Tasks.ToListAsync();
+            var allTasks = await _DbContext.Tasks.Where(task => task.AuthorName == userName).ToListAsync();
             return allTasks;
         }
 

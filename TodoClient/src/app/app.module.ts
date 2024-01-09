@@ -9,13 +9,15 @@ import { NavComponent } from './nav/nav.component';
 import { FormComponent } from './form/form.component';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from './card/card.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     FormComponent,
-    CardComponent
+    CardComponent,
+    RegisterFormComponent
   ],
   imports: [
     BrowserModule,

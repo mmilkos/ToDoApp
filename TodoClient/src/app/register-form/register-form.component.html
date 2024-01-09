@@ -1,7 +1,7 @@
 <div class="h-100 d-flex align-items-left justify-content-left" style="margin: 15px;" >
     <form #taskForm="ngForm" (ngSubmit)="submit()" autocomplete="off">
         <div class="form-group">
-          <label>Task name</label>
+          <label>User name</label>
           <input 
                 name="Name"
                 [(ngModel)]="Model.Name" 
@@ -9,12 +9,12 @@
                 type="text">
         </div>
         <div class="form-group">
-          <label>Task description</label>
-          <textarea 
-                    name="Description"
-                    [(ngModel)]="Model.Description" 
-                    class="form-control"  
-                    rows="3"></textarea>
+          <label>Password</label>
+          <input 
+                name="Password"
+                [(ngModel)]="Model.Password" 
+                class="form-control form-control-lg" 
+                type="password">
         </div>
         <button type="submit" class="btn btn-primary mb-2" >Add</button>
       </form>

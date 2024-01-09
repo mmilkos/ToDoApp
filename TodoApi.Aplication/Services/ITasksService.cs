@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,16 @@ namespace TodoApi.Aplication.Services
 {
     public interface ITasksService
     {
-        Task<IEnumerable<Domain.Entities.UserTask>> GetAllTasksAsync();
-        Task<TaskDto> AddTaskAsync(TaskFormDto tasykJson);
+        Task<IEnumerable<Domain.Entities.UserTask>> GetUserTasksAsync(string name);
+        Task<TaskDto> AddTaskAsync(TaskFormDto tasykJson, string name);
         Task DeleteTaskAsync(int id);
 
         Task ChangeStatusAsync(int id);
 
-        bool CheckIfTaskExistsById(int id);
+        bool DoesTaskExist(int id);
+
+        string GetUserNameFromJwt(string jwt);
+
+        bool IsAuthorizationHeaderValid(IHeaderDictionary headers);
     }
 }
