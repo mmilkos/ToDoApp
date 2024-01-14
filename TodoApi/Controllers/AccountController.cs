@@ -19,14 +19,14 @@ namespace TodoApi.Controllers
         [Consumes("application/json")]
         public async Task<ActionResult> Register([FromBody] RegisterFormDto registerDto)
         {
-            bool userAlreadyExists = _usersService.CheckIfUserAlreadyExists(registerDto.Name);
+            if (!ModelState.IsValid) return BadRequest();
             
-            if (!ModelState.IsValid){ return BadRequest(); }
+            bool userAlreadyExists = _usersService.CheckIfUserAlreadyExists(registerDto.Name);
 
-            if (userAlreadyExists){ return Conflict(); }
+            if (userAlreadyExists) return Conflict();
 
             await _usersService.RegisterAsync(registerDto.Name, registerDto.Password);
-            return Ok();
+            return StatusCode(201);
         }
 
         [HttpPost("login")]
@@ -36,12 +36,12 @@ namespace TodoApi.Controllers
         {
             bool userAlreadyExists = _usersService.CheckIfUserAlreadyExists(userLoginData.Name);
 
-            if (!userAlreadyExists){ return Unauthorized("Invalid user name"); }
+            if (!userAlreadyExists) return Unauthorized("Invalid user name");
 
 
             var LoggedInUser = await _usersService.LoginAsync(userLoginData);
 
-            if (LoggedInUser == null) { return Unauthorized("invalid pasword"); }
+            if (LoggedInUser == null) return Unauthorized("invalid pasword");
 
             
             var token = _usersService.GenerateJwt(LoggedInUser);

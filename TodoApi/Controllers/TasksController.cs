@@ -30,7 +30,7 @@ namespace TodoApi.Controllers
             var headers = HttpContext.Request.Headers;
             bool isValid = _tasksService.IsAuthorizationHeaderValid(headers);
 
-            if (!isValid) { return Unauthorized(); }
+            if (!isValid) return Unauthorized(); 
 
             string jwtToken = headers["Authorization"].ToString().Split(' ', 2)[1];
             string userName = _tasksService.GetUserNameFromJwt(jwtToken);
@@ -47,9 +47,9 @@ namespace TodoApi.Controllers
             var headers = HttpContext.Request.Headers;
             bool isValid = _tasksService.IsAuthorizationHeaderValid(headers);
 
-            if (!isValid) { return Unauthorized(); }
+            if (!isValid) return Unauthorized();
 
-            if (!ModelState.IsValid){ return BadRequest(); }
+            if (!ModelState.IsValid) return BadRequest(); 
 
             string jwt = headers["Authorization"].ToString().Split(' ')[1];
             string userName = _tasksService.GetUserNameFromJwt(jwt);
@@ -64,11 +64,11 @@ namespace TodoApi.Controllers
             var headers = HttpContext.Request.Headers;
             bool isAuthorizationValid = _tasksService.IsAuthorizationHeaderValid(headers);
 
-            if (!isAuthorizationValid) { return Unauthorized(); }
+            if (!isAuthorizationValid) return Unauthorized();
 
             bool exist = _tasksService.DoesTaskExist(taskId);
 
-            if (!exist) { return NotFound(); }
+            if (!exist) return NotFound();
 
             await _tasksService.ChangeStatusAsync(taskId);
 
@@ -81,11 +81,11 @@ namespace TodoApi.Controllers
             var headers = HttpContext.Request.Headers;
             bool isAuthorizationValid = _tasksService.IsAuthorizationHeaderValid(headers);
 
-            if (!isAuthorizationValid) { return Unauthorized(); }
+            if (!isAuthorizationValid)  return Unauthorized();
 
             bool exist = _tasksService.DoesTaskExist(taskId);
             
-            if (!exist){ return NotFound(); }
+            if (!exist) return NotFound(); 
 
             await _tasksService.DeleteTaskAsync(taskId);
             return Ok();      

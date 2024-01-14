@@ -68,14 +68,14 @@ namespace TodoApi.Aplication.Services
         public bool IsAuthorizationHeaderValid(IHeaderDictionary headers) 
         {
 
-            if (!headers.ContainsKey("Authorization")){ return false;}
+            if (!headers.ContainsKey("Authorization")) return false;
             var authHeader = headers["Authorization"].ToString();
             var authParts = authHeader.Split(' ');
 
-            if (authParts.Length < 2) { return false; }
+            if (authParts.Length < 2) return false; 
 
             var handler = new JwtSecurityTokenHandler();
-            if (!handler.CanReadToken(authParts[1])) {  return false; }
+            if (!handler.CanReadToken(authParts[1])) return false;
 
             return true;
         }

@@ -16,6 +16,7 @@ export class CardComponent
   @Input() status!: boolean;
 
 
+
   constructor(private Task: TasksService, private Account: AccountService) {}
 
   Delete()
@@ -34,10 +35,14 @@ export class CardComponent
 
   update()
   {
+    this.status = !this.status;
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.Account.currentUserSource.value?.token)
     this.Task.updateTaskStatus(this.id, headers).subscribe(
       {
-        next: response => console.log(response),
+        next: response =>
+        { 
+          console.log(response);
+        },
         error: error => console.error(error)
       }
     )

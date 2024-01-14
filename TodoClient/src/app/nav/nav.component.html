@@ -1,16 +1,12 @@
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-md navbar-dark mb-4" style="background-color: #2564cf;">
   <div class="container-fluid">
     <a class="navbar-brand">{{name}}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <!-- <li *ngIf="!account.loggedIn" class="nav-item">
-          <a class="nav-link" href="#">Register</a>
-        </li> -->
-      </ul>
+      <div class="navbar-nav me-auto mb-2 mb-md-0"></div>
       <form *ngIf="!account.loggedIn" #loginForm="ngForm" (ngSubmit)="login()" class="d-flex" role="search" autocomplete="off">
         <input
         name="username"
@@ -23,9 +19,9 @@
         class="form-control me-2"
          type="password" 
          placeholder="Password">
-        <button class="btn btn-outline-success" type="submit">Login</button>
+        <button class="btn btn-light" type="submit">Login</button>
       </form>
-      <button *ngIf="account.loggedIn" (click)="logout()" class="btn btn-outline-success" type="submit">Logout</button>
+      <button *ngIf="account.loggedIn" (click)="logout()"class="btn btn-light" type="submit">Logout</button>
     </div>
   </div>
 </nav>
