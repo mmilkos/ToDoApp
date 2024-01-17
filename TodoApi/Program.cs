@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddAplication();
+builder.Services.AddAplication(builder.Configuration);
 builder.Services.AddCors();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<TodoApiSeeder>();
-await seeder.SeedAsync();
+//await seeder.SeedAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -29,10 +29,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+
 
 string origin = "http://localhost:4200";
 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins(origin));
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.MapControllers();
 

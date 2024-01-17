@@ -24,7 +24,7 @@ namespace TodoApi.Infrastructure.Seeders
             {
                 if (!anyTasks) 
                 {
-                    var firstTask = new Domain.UserTask();
+                    var firstTask = new Domain.Entities.UserTask();
                     firstTask.Name = "Create to do app";
                     firstTask.Description = "First task";
 

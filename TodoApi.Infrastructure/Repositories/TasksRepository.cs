@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TodoApi.Domain;
+using TodoApi.Domain.Entities;
 using TodoApi.Domain.Interfaces;
 using TodoApi.Infrastructure.Persistence;
 
 namespace TodoApi.Infrastructure.Repositories
 {
-    public class TodoApiRepository : ITodoApiRepository
+    public class TasksRepository : ITasksRepository
     {
         private readonly ToDoAppDbContext _DbContext;
-        public TodoApiRepository(ToDoAppDbContext dbContext)
+        public TasksRepository(ToDoAppDbContext dbContext)
         {
             _DbContext = dbContext;
         }
@@ -22,8 +22,7 @@ namespace TodoApi.Infrastructure.Repositories
         {
            await _DbContext.Tasks.AddAsync(task);
            await _DbContext.SaveChangesAsync();
-           return task;
-           
+           return task;  
         }
 
         public async Task ChangeStatusAsync(int id)
@@ -37,9 +36,15 @@ namespace TodoApi.Infrastructure.Repositories
             }
         }
 
-        public async Task DeleteTaskAsync(int id)
+        public bool DoesTaskExist(int taskId)
         {
-            UserTask userTask = await _DbContext.Tasks.FindAsync(id);
+            bool exist =  _DbContext.Tasks.Any(task => task.Id == taskId);
+            return exist;
+        }
+
+        public async Task DeleteTaskAsync(int taskId)
+        {
+            UserTask userTask = await _DbContext.Tasks.FindAsync(taskId);
             if (userTask != null)
             {
                 _DbContext.Tasks.Remove(userTask);
@@ -47,9 +52,9 @@ namespace TodoApi.Infrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<UserTask>> GetAllTasksAsync()
+        public async Task<IEnumerable<UserTask>> GetUserTasksAsync(string userName)
         {
-            var allTasks = await _DbContext.Tasks.ToListAsync();
+            var allTasks = await _DbContext.Tasks.Where(task => task.AuthorName == userName).ToListAsync();
             return allTasks;
         }
 

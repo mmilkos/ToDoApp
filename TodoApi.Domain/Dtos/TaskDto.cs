@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TodoApi.Domain
+namespace TodoApi.Domain.Dtos
 {
-    public class UserTaskResponse
+    public class TaskDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -16,5 +16,7 @@ namespace TodoApi.Domain
         public DateTime CreatedDate { get; set; }
 
         public bool Complited { get; set; }
+
+        public string Author { get; set; }
     }
 }

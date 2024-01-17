@@ -1,10 +1,19 @@
 <app-nav></app-nav>
-<app-form></app-form>
 
-<h2>Current tasks:</h2>
+<div *ngIf="Account.loggedIn">
+  <app-form></app-form>
 
-<ul style="list-style-type: none; display: flex; flex-wrap: wrap;">
-  <li *ngFor="let task of userTasks" style="margin: 10px;">
-      <app-card [id]="task.id" [name]="task.name" [desc]="task.description" [status]="task.complited" style="margin: 10px;"></app-card>
-  </li>
-</ul>
+ 
+
+  <div class="container-fluid" style="margin: 0; padding: 0px; width: 100vw;" >
+    <div class="d-flex flex-wrap" style="margin: 0; padding: 0;">
+      <div *ngFor="let task of userTasks" style="margin: 10px;">
+        <app-card [id]="task.id" [name]="task.name" [desc]="task.description" [status]="task.complited"></app-card>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!Account.loggedIn">
+  
+  <app-register-form></app-register-form>
+</div>

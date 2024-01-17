@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CrudService } from './services/crud.service';
+import { TasksService } from './services/tasks.service';
+import { AccountService } from './services/account.service';
+import { User } from './user';
 
 
 @Component({
@@ -13,15 +15,28 @@ import { CrudService } from './services/crud.service';
 export class AppComponent implements OnInit {
   title = 'TodoClient';
   userTasks : any;
-  
 
-  constructor(private crud: CrudService) {}
+
+  constructor(private Tasks: TasksService, public Account : AccountService) {}
 
   ngOnInit(): void 
   {
-    this.crud.getAllTasks().subscribe(
-      ()=>{this.userTasks = this.crud.getTasks();}
-    )
+    this.setCurrentUser();
+    if (true) {
+      let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.Account.currentUserSource.value?.token);
+      this.Tasks.getAllTasks(headers).subscribe(
+        ()=>{this.userTasks = this.Tasks.getTasks();}
+      ) 
+    }
+    
   }
 
+
+  setCurrentUser(){
+    const userString = localStorage.getItem('user');
+    if (!userString) {return}
+
+    const user : User = JSON.parse(userString);
+    this.Account.setCurrentUser(user);
+  }
 }

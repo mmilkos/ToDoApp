@@ -5,15 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TodoApi.Domain
+namespace TodoApi.Domain.Dtos
 {
-    public class FormModelDto
+    public class TaskFormDto
     {
-        [Required]
-        public int Id { get; set; }
 
         [Required]
-        [MinLength(2, ErrorMessage = "Name should be min 2 chars")]
+        [MinLength(2, ErrorMessage = "The field Name must be a string type with a minimum length of 2")]
         public string Name { get; set; }
 
         public string? Description { get; set; }

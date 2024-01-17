@@ -1,16 +1,10 @@
-<div class="card bg-light" style="width: 18rem;">
-    <div class="card-body ">
-        <div style="display: flex; justify-content: space-between;">
-            <h5 class="card-title" style="display: inline-block;"  >{{name}} </h5>
-            <label class="form-check-label">
-            </label>
-    </div>
-      <p class="card-text">{{desc}}</p>
-      <div class="form-check">
-        <div style="display: flex; justify-content: space-between;">
-            <button href="#" class="btn btn-danger" (click)="Delete()">Delete</button>
-            <p>Done</p>
-            <input class="form-check-input" type="checkbox" [(ngModel)]="status" (change)="Update()">
-        </div>
-    </div>
+<div class="container-fluid" style="width: 95vw; margin: 5px; padding-top: 20px; padding-bottom: 20px; background-color: white;" >
+  <div class="row">
+    <div class="col-8"><h5 class="card-title" [ngStyle]="{'text-decoration': status ? 'line-through' : 'none'}" >{{name}} </h5></div>
+    <div class="col-4" style="text-align: right;"> <button [ngClass]="{'btn-primary': status, 'btn-secondary': !status}" class="btn" (click)="update()" style="width: 70px;">Done</button></div>
   </div>
+  <div class="row" style="margin-top: 1px;">
+    <div class="col-8" ><p class="card-text" >{{desc}}</p></div>
+    <div class="col-4" style="text-align: right;"><button href="#" class="btn btn-danger" (click)="Delete()" style="width: 70px;">Delete</button></div>
+  </div>
+</div>
